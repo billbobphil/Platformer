@@ -4,16 +4,12 @@ class Platform {
     posY;
     velocityX;
     velocityY;
-    maxXTravelDistance;
-    maxYTravelDistance;
-    startingXPosition;
-    startingYPosition;
     color;
     width;
     height;
     movementController;
-    affectedByGravity;
-    affectedByFriction;
+    affectedByGravity = false;
+    affectedByFriction = false;
     type = 'platform';
 
     constructor(width, height, posX, posY, color) {
@@ -26,8 +22,6 @@ class Platform {
         this.velocityY = 0;
         this.color = color;
         this.movementController = new PlatformMovementController(this);
-        this.affectedByGravity = false;
-        this.affectedByFriction = false;
 
     }
 
@@ -55,16 +49,4 @@ class Platform {
         return this.posY + this.height;
     }
 
-    setMovingPlatform(direction, velocity, maxTravelDistance) {
-        if(direction == 'vertical') {
-            this.startingYPosition = this.posY;
-            this.velocityY = velocity;
-            this.maxYTravelDistance = maxTravelDistance;
-        }
-        else if (direction == 'horizontal') {
-            this.startingXPosition = this.posX;
-            this.velocityX = velocity;
-            this.maxXTravelDistance = maxTravelDistance;
-        }
-    }
 }

@@ -10,7 +10,7 @@ window.addEventListener('load', (e) => {
     setup();
 
     gameEngine.levels = getAllLevels();
-    gameEngine.currentLevel = 0;
+    gameEngine.currentLevel = 3;
     gameEngine.startLevel();
 
 });

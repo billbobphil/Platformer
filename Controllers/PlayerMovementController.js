@@ -30,6 +30,7 @@ class PlayerMovementController {
         switch (keyEvent.key){
             case 'w':
             case 'W':
+            case ' ':
 
                 this.upPressed = true;
 
@@ -59,6 +60,7 @@ class PlayerMovementController {
         switch (keyEvent.key){
             case 'w':
             case 'W':
+            case ' ':
 
                 this.upPressed = false;
 
@@ -88,10 +90,11 @@ class PlayerMovementController {
     calculateVelocityY(player) {
 
         if(this.upPressed) {
-            if(player.grounded)
+            if(player.grounded && player.groundedCount >= 8)
             {
                 player.velocityY -= this.jumpHeight;
                 player.grounded = false;
+                player.groundedCount = 0;
             }
             else if (player.onWallLeftEdge) {
                 player.velocityY -= this.wallJumpHeight;

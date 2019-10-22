@@ -13,7 +13,7 @@ class GameEngine {
     constructor() {
         this.gameWindow = document.getElementById('GameScreen');
         this.context = this.gameWindow.getContext('2d');
-        this.friction = .9;
+        this.friction = .8;
         this.airFriction = .95;
         this.gravity = .8;
     }
@@ -27,7 +27,7 @@ class GameEngine {
 
         this.runningRenderInterval = setInterval(() => {
                 gameEngine.render(renderArray);
-            }, 1000/30); //30 FPS
+            }, 1000/60); //60 FPS
     }
    
     render = (gameObjectRenderList) => {
@@ -166,6 +166,7 @@ class GameEngine {
             // console.log('onTop');
             //Above platform
             player.grounded = true;
+            player.groundedCount++;
             player.velocityY = 0;
             player.posY = platform.top() - player.height;
         }

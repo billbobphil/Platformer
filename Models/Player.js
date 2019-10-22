@@ -5,6 +5,7 @@ class Player {
     velocityX;
     velocityY;
     grounded = true;
+    groundedCount = 10;
     ducking = false;
     onWallRightEdge = false;
     onWallLeftEdge = false;

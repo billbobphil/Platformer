@@ -18,21 +18,21 @@ class Level3 {
         player.posY = this.gameWindow.height - 50 - player.height;
 
         let platform1 = new Platform(200, 10, 0, this.gameWindow.height - 50, '#000');
-        let hazard1 = new Hazard(50, 40, 80, this.gameWindow.height - 100,  'red');
+        let hazard1 = new Hazard(40, 30, 80, this.gameWindow.height - 90,  'red');
         let platform2 = new Platform( 130, 10, 250, this.gameWindow.height - 120, '#000');
         let hazard2 = new Hazard(80, 20, platform2.posX + platform2.width - 80, platform2.posY - 30, 'red');
         let platform3 = new Platform(50, 10, 150, this.gameWindow.height - 185, 'black');
         let platform4 = new Platform(50, 10, 280, 650, 'black');
-        let hazard3 = new Hazard(20, 20, 370, 600, 'red');
+        // let hazard3 = new Hazard(20, 20, 370, 600, 'red');
+        let hazard3 = new HazardSpike(370, 600);
         let platform5 = new Platform(50, 10, 420, 650, 'black');
 
-        let platform6 = new Platform(50, 10, 600, 700, 'black');
-        platform6.setMovingPlatform('horizontal', 3, 150);
+        let platform6 = new PlatformMoving(50, 10, 600, 700, 'black', 1.5, 0, 150, 0);
 
         let platform7 = new Platform(150, 40, 850, 700, 'black');
         let hazard4 = new Hazard(40, 30, 810, 710, 'red');
-        let platform8 = new Platform(50, 10, 1100, 700, 'black');
-        platform8.setMovingPlatform('vertical', -3, 150);
+
+        let platform8 = new PlatformMoving(50, 10, 1100, 700, 'black', 0, -1.5, 0, 150);
 
         
 
