@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel='stylesheet' href='./main.css' />
+    </head>
+    <body style='background-color: blueviolet;'>
+        <canvas width=1400 height=900 id='GameScreen' style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);'>
+
+        </canvas>
+    </body>
+
+    <!-- Controllers -->
+    <script src='./Controllers/PlayerMovementController.js'></script>
+    <script src='./Controllers/PlatformMovementController.js'></script>
+
+    <!-- Models -->
+    <script src='./Models/Player.js'></script>
+    <script src='./Models/Platform.js'></script>
+    <script src='./Models/Objective.js'></script>
+    <script src='./Models/Hazard.js'></script>
+
+    <!-- Engine -->
+    <script src='./Engine/GameEngine.js'></script>
+
+    <!-- Levels -->
+    <script src='./Levels/Level0.js'></script>
+    <script src='./Levels/Level1.js'></script>
+    <script src='./Levels/Level2.js'></script>
+    <script src='./Levels/Level3.js'></script>
+
+    <!-- Bootstrap -->
+    <script src='./Main.js'></script>
+</html>
