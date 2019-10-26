@@ -25,6 +25,11 @@ class Platform {
 
     }
 
+    setPosY = (posY) => {
+        console.log('platform posY passed value: ' + posY);
+        this.posY = posY;
+    }
+
     calculateVelocityX() {
         this.movementController.calculateVelocityX(this);
     }

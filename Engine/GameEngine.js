@@ -1,5 +1,6 @@
 class GameEngine {
-
+    //TODO: level editor flag for which startlevel method to be running
+    //TODO: collision - ensure objects that are NOT players colliding with other items on screen does not restart the level!
     gameWindow;
     context;
     friction;
@@ -9,27 +10,61 @@ class GameEngine {
     levels;
     currentLevel;
     runningRenderInterval;
+    runningInEditor;
+    renderArray;
 
     constructor() {
         this.gameWindow = document.getElementById('GameScreen');
         this.context = this.gameWindow.getContext('2d');
-        this.friction = .8;
+        this.friction = .7;
         this.airFriction = .95;
         this.gravity = .8;
+        this.runningInEditor = false;
     }
 
-    startLevel() {
-
-        let renderArray = this.levels[this.currentLevel].getLevelStartState();
+    startLevel = () => {
+        console.log('[Game Engine] Starting');
+        this.renderArray = this.levels[this.currentLevel].getLevelStartState();
         player.velocityX = 0;
         player.velocityY = 0;
         clearInterval(this.runningRenderInterval);
 
         this.runningRenderInterval = setInterval(() => {
-                gameEngine.render(renderArray);
+                gameEngine.render(this.renderArray);
             }, 1000/60); //60 FPS
     }
-   
+
+    startLevelInEditor = (additionalObjectsArray) => {
+        console.log('[Game Engine] Starting - Level Editor Mode');
+        clearInterval(this.runningRenderInterval);
+
+        if(!this.runningInEditor) {
+            this.runningInEditor = true;
+        }
+
+        this.renderArray = this.levels[this.currentLevel].getLevelStartState();
+
+        for(var i = 0; i < additionalObjectsArray.length; i++) {
+            this.renderArray.push(additionalObjectsArray[i]);
+        }
+
+        console.log('[Game Engine] Render Array');
+        console.log(this.renderArray);
+
+        player.velocityX = 0;
+        player.velocityY = 0;
+        
+        
+        this.runningRenderInterval = setInterval(() => {
+            gameEngine.render(this.renderArray);
+        }, 1000/60); //60 FPS
+    }
+
+    stopEngine() {
+        console.log('[Game Engine] Stopping');
+        clearInterval(this.runningRenderInterval);
+    }
+
     render = (gameObjectRenderList) => {
         
         this.clearCanvas();
@@ -60,7 +95,6 @@ class GameEngine {
         if(gameObject.velocityY != 0 || gameObject.type == 'player') {
             gameObject.calculateVelocityY();
         }
-        
 
         if(gameObject.affectedByGravity) {
             gameObject.velocityY = gameObject.velocityY + this.gravity;
@@ -68,6 +102,7 @@ class GameEngine {
        
         gameObject.posY += gameObject.velocityY;
 
+        //bug -here?? - for posX
         this.windowCollision(gameObject);
 
         if(gameObject.affectedByGravity) {
@@ -132,7 +167,13 @@ class GameEngine {
         if(gameObject.bottom() >= this.gameWindow.height){
             gameObject.posY = this.gameWindow.height - gameObject.height;
 
-            this.startLevel();
+            if(this.runningInEditor) {
+                this.startLevelInEditor(levelEditor.activeEditorObjects);
+            }
+            else {
+                this.startLevel();
+            }
+            
         }
 
         //Left of GameWindow
@@ -144,7 +185,7 @@ class GameEngine {
             gameObject.onWallLeftEdge = false;
         }
 
-        //Right of GameWindow
+        // //Right of GameWindow
         if (gameObject.right() >= this.gameWindow.width)
         {
             // gameObject.onWallRightEdge = true;
@@ -195,7 +236,12 @@ class GameEngine {
     }
 
     collidingWithHazard(hazard) {
-        this.startLevel();
+        if(this.runningInEditor) {
+            this.startLevelInEditor(levelEditor.activeEditorObjects);
+        }
+        else {
+            this.startLevel();
+        }
     }
 
     isColliding(gameObject) {

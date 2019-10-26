@@ -4,13 +4,14 @@ let playerWidth = 30;
 let canvas = document.getElementById('GameScreen');
 let player = new Player(canvas.width - playerWidth, canvas.height - playerHeight, playerWidth, playerHeight, 0, 0, '#FFFFFF', new PlayerMovementController(), true);
 let gameEngine = new GameEngine();
+let levelEditor;
 
 window.addEventListener('load', (e) => {
 
     setup();
 
     gameEngine.levels = getAllLevels();
-    gameEngine.currentLevel = 3;
+    gameEngine.currentLevel = 0;
     gameEngine.startLevel();
 
 });
@@ -29,4 +30,12 @@ getAllLevels = () => {
     levelArray.push(new Level3(canvas));
 
     return levelArray;
+}
+
+loadLevelEditor = () => {
+
+    if(!levelEditor) {
+        levelEditor = new LevelEditor();
+    }
+    
 }

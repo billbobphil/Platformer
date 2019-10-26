@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel='stylesheet' href='./main.css' />
+    </head>
+    <body style='background-color: blueviolet; font-size: 24px;'>
+        <canvas width="1400" height="900" id='GameScreen'>
+
+        </canvas>
+        <div id='levelConfigMenu'
+            style='position: absolute; right: 0%; top: 0%; background-color: #CCC;
+            width: 600px; height: 100%;'
+        >
+        <br/>
+        <fieldset style='width: 90%; margin: 0 auto;'>
+            <legend>New Object</legend>
+            <br/>
+            <table>
+                <tr>
+                    <td>
+                        <label for='itemPicker'>Item Type: </label> 
+                    </td>
+                    <td>
+                        <select id='itemPicker'>
+                            <option>Platform</option>
+                            <option>Spike</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for='widthPicker'>Width: </label>
+                    </td>
+                    <td>
+                        <input id='widthPicker' type='number' min='15' max='1000' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for='heightPicker'>Height: </label>
+                    </td>
+                    <td>
+                        <input id='heightPicker' type='number' min='5' max='850' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for='posXPicker'>X Position: </label>
+                    </td>
+                    <td>
+                        <input id='posXPicker' type='number' min='0' max='1400' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for='posYPicker'>Y Position: </label>
+                    </td>
+                    <td>
+                        <input id='posYPicker' type='number' min='0' max='1000' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button style='font-size: 24px;' onclick="levelEditor.placeNewObject()">Place Object</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br/><br/>
+        <fieldset style='width: 90%; margin: 0 auto;'>
+            <legend>Current Objects</legend>
+            <table>
+                <tr>
+                    <td><label for='currentObjectsList'>Current Objects:</label></td>
+                    <td>
+                        <select onchange="levelEditor.changeEditingObjectID(event)" id='currentObjectsList'>
+
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for='currentObjectWidth'>Width:</label></td>
+                    <td>
+                        <input step='50' type='number' id='currentObjectWidth' onclick='levelEditor.alterObject()' />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for='currentObjectHeight'>Height:</label></td>
+                    <td>
+                        <input step='10' type='number' id='currentObjectHeight' onclick='levelEditor.alterObject()' />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for='currentObjectPosX'>Position X:</label></td>
+                    <td>
+                        <input step='10' type='number' id='currentObjectPosX' onclick='levelEditor.alterObject()' />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for='currentObjectPosY'>Position Y:</label></td>
+                    <td>
+                        <input step='10' type='number' id='currentObjectPosY' onclick='levelEditor.alterObject()' />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button style='font-size: 24px;' id='alterObject' onclick='levelEditor.alterObject()'>Change</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button style='font-size: 24px;' id='alterObject' onclick='levelEditor.removeObject()'>Remove</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br/><br/>
+
+        <button style='font-size: 24px;' id='loadLevelEditor' onclick="loadLevelEditor()">Load Level Editor</button>
+        <br/><br/>
+        <button style='font-size: 24px;' id='clearObjectsFromEditor' onclick='levelEditor.clearActiveEditorObjects()'>Clear Active Objects</button>
+        <br/><br/>
+        <button style='font-size: 24px;' id='exportLevel' onclick='levelEditor.exportLevel()'>Export Level</button>
+        </div>
+
+    </body>
+
+    <!-- Controllers -->
+    <script src='./Controllers/PlayerMovementController.js'></script>
+    <script src='./Controllers/PlatformMovementController.js'></script>
+
+    <!-- Models -->
+    <script src='./Models/Player.js'></script>
+    <script src='./Models/Platform.js'></script>
+    <script src='./Models/PlatformMoving.js'></script>
+    <script src='./Models/Objective.js'></script>
+    <script src='./Models/Hazard.js'></script>
+    <script src='./Models/HazardSpike.js'></script>
+
+    <!-- Engine -->
+    <script src='./Engine/GameEngine.js'></script>
+
+    <!-- Levels -->
+    <script src='./Levels/Level0.js'></script>
+    <script src='./Levels/Level1.js'></script>
+    <script src='./Levels/Level2.js'></script>
+    <script src='./Levels/Level3.js'></script>
+
+    <!-- DEV ONLY -->
+    <script src='./LevelEditor/LevelEditor.js'></script>
+
+    <!-- Bootstrap -->
+    <script src='./Main.js'></script>
+</html>
